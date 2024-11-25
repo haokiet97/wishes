@@ -31,7 +31,7 @@ app.use(express.json());
 // GET /api/v1/wishes
 app.get('/api/v1/wishes', async (req, res) => {
   try {
-    const wishes = await Wish.find();
+    const wishes = await Wish.find().sort({ created_at: -1 });
     res.status(200).json(wishes);
   } catch (error) {
     res.status(400).json({ error: 'Failed to fetch wishes' });
