@@ -42,9 +42,8 @@ app.get('/api/v1/wishes', async (req, res) => {
 app.post('/api/v1/wishes', async (req, res) => {
   const { content, name } = req.body;
 
-  if (!content || !name) {
-    return res.status(400).json({ error: 'Content and name are required' });
-  }
+  if (!name) return res.status(400).json({ error: 'Name is required' });
+  if (!content) return res.status(400).json({ error: 'Content is required' });
 
   try {
     const newWish = new Wish({ content, name });
@@ -52,45 +51,6 @@ app.post('/api/v1/wishes', async (req, res) => {
     res.status(200).json(newWish);
   } catch (error) {
     res.status(400).json({ error: 'Failed to create wish' });
-  }
-});
-
-// PATCH /api/v1/wishes/:id
-app.patch('/api/v1/wishes/:id', async (req, res) => {
-  const { id } = req.params;
-  const { content, name } = req.body;
-
-  try {
-    const updatedWish = await Wish.findByIdAndUpdate(
-      id,
-      { content, name },
-      { new: true, runValidators: true },
-    );
-
-    if (!updatedWish) {
-      return res.status(404).json({ error: 'Wish not found' });
-    }
-
-    res.status(200).json(updatedWish);
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to update wish' });
-  }
-});
-
-// DELETE /api/v1/wishes/:id
-app.delete('/api/v1/wishes/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const deletedWish = await Wish.findByIdAndDelete(id);
-
-    if (!deletedWish) {
-      return res.status(404).json({ error: 'Wish not found' });
-    }
-
-    res.status(200).json({ message: 'Wish deleted successfully' });
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to delete wish' });
   }
 });
 
