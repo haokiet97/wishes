@@ -1,0 +1,17 @@
+node_modules/
+.pnp/
+dist-ssr/
+coverage/
+.next/
+out/
+.vercel/
+cypress/
+dest/
+/build
+tmp/
+dist/
+visualizer/
+.github/
+.husky/
+src/assets/
+public/
