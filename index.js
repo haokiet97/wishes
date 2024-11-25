@@ -28,8 +28,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
 
-// GET /api/v1/wishes
-app.get('/api/v1/wishes', async (req, res) => {
+// GET /v1/wishes
+app.get('/v1/wishes', async (req, res) => {
   try {
     const wishes = await Wish.find().sort({ created_at: -1 });
     res.status(200).json(wishes);
@@ -38,8 +38,8 @@ app.get('/api/v1/wishes', async (req, res) => {
   }
 });
 
-// POST /api/v1/wishes
-app.post('/api/v1/wishes', async (req, res) => {
+// POST /v1/wishes
+app.post('/v1/wishes', async (req, res) => {
   const { content, name } = req.body;
 
   if (!name) return res.status(400).json({ error: 'Name is required' });
