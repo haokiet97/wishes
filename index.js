@@ -31,8 +31,23 @@ app.use(express.json());
 // GET /v1/wishes
 app.get('/v1/wishes', async (req, res) => {
   try {
-    const wishes = await Wish.find().sort({ created_at: -1 });
-    res.status(200).json(wishes);
+    const { page = 1, limit = 10 } = req.query;
+    const currentPage = Math.max(1, parseInt(page, 10));
+    const itemsPerPage = Math.max(1, parseInt(limit, 10));
+    const skip = (currentPage - 1) * itemsPerPage;
+
+    const wishes = await Wish.find().sort({ created_at: -1 }).skip(skip).limit(itemsPerPage);
+    const totalItems = await Wish.countDocuments();
+
+    res.status(200).json({
+      data: wishes,
+      meta: {
+        totalItems,
+        currentPage,
+        totalPages: Math.ceil(totalItems / itemsPerPage),
+        itemsPerPage,
+      },
+    });
   } catch (error) {
     res.status(400).json({ error: 'Failed to fetch wishes' });
   }
