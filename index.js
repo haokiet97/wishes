@@ -39,10 +39,10 @@ app.get('/v1/wishes', async (req, res) => {
     res.status(200).json({
       data: wishes,
       meta: {
-        totalItems,
-        currentPage,
-        totalPages: Math.ceil(totalItems / itemsPerPage),
-        itemsPerPage,
+        total_items: totalItems,
+        current_page: currentPage,
+        total_pages: Math.ceil(totalItems / itemsPerPage),
+        items_per_page: itemsPerPage,
       },
     });
   } catch (error) {
