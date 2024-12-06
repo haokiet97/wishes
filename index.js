@@ -28,7 +28,7 @@ app.use(express.json());
 // GET /v1/wishes
 app.get('/v1/wishes', async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 20 } = req.query;
     const currentPage = Math.max(1, parseInt(page, 10));
     const itemsPerPage = Math.max(1, parseInt(limit, 10));
     const skip = (currentPage - 1) * itemsPerPage;
