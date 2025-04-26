@@ -46,7 +46,7 @@ app.get('/v1/wishes', async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to fetch wishes' });
+    res.status(400).json({ error: 'Failed to fetch wishes Giapnv' });
   }
 });
 
